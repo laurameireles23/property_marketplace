@@ -1,0 +1,38 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rails Server",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/rails",
+      "args": ["server", "-b", "0.0.0.0"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "RAILS_ENV": "development"
+      }
+    },
+    {
+      "name": "Rails Console",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/rails",
+      "args": ["console"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "RAILS_ENV": "development"
+      }
+    },
+    {
+      "name": "Rails Test",
+      "type": "Ruby",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/rails",
+      "args": ["test"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "RAILS_ENV": "test"
+      }
+    }
+  ]
+}

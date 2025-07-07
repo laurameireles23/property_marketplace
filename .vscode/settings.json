@@ -1,0 +1,43 @@
+{
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true
+    }
+  },
+  "ruby.format": "rubocop",
+  "ruby.intellisense": "rubyLsp",
+  "files.associations": {
+    "*.rb": "ruby",
+    "*.erb": "erb"
+  },
+  "emmet.includeLanguages": {
+    "erb": "html"
+  },
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/tmp": true,
+    "**/log": true,
+    "**/storage": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/tmp": true,
+    "**/log": true,
+    "**/storage": true,
+    "**/vendor": true
+  },
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "erb": "html"
+  },
+  "files.watcherExclude": {
+    "**/tmp/**": true,
+    "**/log/**": true,
+    "**/storage/**": true,
+    "**/node_modules/**": true
+  }
+}
