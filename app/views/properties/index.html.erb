@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-end mb-4">
+  <%= link_to raw('<i class="bi bi-plus-lg"></i> Novo Imóvel'), new_property_path, class: "btn btn-primary btn-lg" %>
+</div>
+<div class="row g-4">
+  <% @properties.each do |property| %>
+    <%= render partial: "property_card", locals: { property: property } %>
+  <% end %>
+  <% if @properties.empty? %>
+    <div class="col-12 text-center py-5">
+      <h4 class="text-muted mb-3">Nenhum imóvel encontrado</h4>
+      <%= link_to "Criar primeiro imóvel", new_property_path, class: "btn btn-primary btn-lg" %>
+    </div>
+  <% end %>
+</div>

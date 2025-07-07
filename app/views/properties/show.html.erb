@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow">
+      <div class="card-header bg-white">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h1 class="h2 mb-2 text-dark"><%= @property.title %></h1>
+            <p class="text-muted mb-2">
+              <i class="bi bi-geo-alt"></i> <%= @property.address %>
+            </p>
+            <h2 class="text-success fw-bold mb-2">
+              R$ <%= number_with_precision(@property.price, precision: 2, delimiter: '.') %>
+            </h2>
+            <p class="text-muted mb-0">
+              <i class="bi bi-person"></i> Vendedor: <%= @property.user.name %>
+            </p>
+          </div>
+          <div class="btn-group">
+            <% unless @offers.any? { |o| o.status == 'accepted' } %>
+              <%= link_to "Fazer Oferta", new_property_offer_path(@property), class: "btn btn-success" %>
+            <% end %>
+            <%= link_to "Editar", edit_property_path(@property), class: "btn btn-primary" %>
+            <%= link_to "Voltar", properties_path, class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <h3 class="h4 mb-4 text-dark">Ofertas Recebidas</h3>
+
+        <% if @offers.any? %>
+          <div class="row">
+            <% @offers.each do |offer| %>
+              <div class="col-12 mb-3">
+                <div class="card border">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h5 class="card-title text-success fw-bold mb-1">
+                          R$ <%= number_with_precision(offer.value, precision: 2, delimiter: '.') %>
+                        </h5>
+                        <p class="text-muted mb-2">
+                          <i class="bi bi-person"></i> Comprador: <%= offer.user.name %>
+                        </p>
+                        <span class="badge
+                          <%= offer.status == 'pending' ? 'bg-warning text-dark' :
+                              offer.status == 'accepted' ? 'bg-success' : 'bg-danger' %>">
+                          <%= offer.status.humanize %>
+                        </span>
+                      </div>
+
+                      <% if offer.status == 'pending' %>
+                        <div class="btn-group btn-group-sm">
+                          <%= form_with url: accept_offer_path(offer), method: :patch, local: true, class: "d-inline" do |f| %>
+                            <%= f.submit "Aceitar", class: "btn btn-success" %>
+                          <% end %>
+                          <%= form_with url: reject_offer_path(offer), method: :patch, local: true, class: "d-inline" do |f| %>
+                            <%= f.submit "Rejeitar", class: "btn btn-danger" %>
+                          <% end %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-5">
+            <div class="mb-3">
+              <i class="bi bi-inbox display-4 text-muted"></i>
+            </div>
+            <h5 class="text-muted">Nenhuma oferta recebida ainda</h5>
+            <p class="text-muted">Seja o primeiro a fazer uma oferta por este imóvel!</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

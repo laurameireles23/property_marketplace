@@ -1,0 +1,25 @@
+<%= simple_form_for @property do |f| %>
+  <div class="row">
+    <% if defined?(@vendedores) && @vendedores.present? %>
+      <div class="col-12 mb-3">
+        <%= f.input :user_id, collection: @vendedores, label: 'Vendedor', as: :select, prompt: 'Selecione o vendedor', required: true, input_html: { class: 'form-select' }, value_method: :id, label_method: :name %>
+      </div>
+    <% end %>
+    <div class="col-12 mb-3">
+      <%= f.input :title, label: 'Título', wrapper: false,
+          input_html: { class: 'form-control' } %>
+    </div>
+    <div class="col-12 mb-3">
+      <%= f.input :address, label: 'Endereço', wrapper: false,
+          input_html: { class: 'form-control' } %>
+    </div>
+    <div class="col-12 mb-4">
+      <%= f.input :price, label: 'Preço', wrapper: false,
+          input_html: { class: 'form-control' } %>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end gap-2">
+    <%= link_to (local_assigns[:cancel_path] || properties_path), class: "btn btn-secondary" do %>Cancelar<% end %>
+    <%= f.button :submit, (local_assigns[:submit_label] || 'Salvar'), class: "btn btn-primary" %>
+  </div>
+<% end %>
