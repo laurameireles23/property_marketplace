@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow">
+      <div class="card-header bg-white">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <h1 class="h2 mb-2 text-dark"><%= @user.name %></h1>
+            <p class="text-muted mb-2">
+              <i class="bi bi-envelope"></i> <%= @user.email %>
+            </p>
+            <p class="text-muted mb-3">
+              <i class="bi bi-telephone"></i> <%= @user.phone %>
+            </p>
+            <span class="badge
+              <%= @user.user_type == 'vendedor' ? 'bg-primary' : 'bg-success' %> fs-6">
+              <%= @user.user_type.humanize %>
+            </span>
+          </div>
+          <%= link_to "Voltar", users_path, class: "btn btn-secondary" %>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <% if @user.user_type == 'vendedor' && @properties %>
+          <h3 class="h4 mb-4 text-dark">Imóveis do Vendedor</h3>
+
+          <% if @properties.any? %>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              <% @properties.each do |property| %>
+                <div class="col">
+                  <div class="card border">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <%= link_to property.title, property_path(property), class: "text-decoration-none" %>
+                      </h5>
+                      <p class="text-muted mb-2">
+                        <i class="bi bi-geo-alt"></i> <%= property.address %>
+                      </p>
+                      <h4 class="text-success fw-bold mb-0">
+                        R$ <%= number_with_precision(property.price, precision: 2, delimiter: '.') %>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <div class="mb-3">
+                <i class="bi bi-house display-4 text-muted"></i>
+              </div>
+              <h5 class="text-muted">Nenhum imóvel cadastrado</h5>
+              <p class="text-muted">Este vendedor ainda não cadastrou nenhum imóvel.</p>
+            </div>
+          <% end %>
+
+        <% elsif @user.user_type == 'comprador' && @offers %>
+          <h3 class="h4 mb-4 text-dark">Ofertas do Comprador</h3>
+
+          <% if @offers.any? %>
+            <div class="row">
+              <% @offers.each do |offer| %>
+                <div class="col-12 mb-3">
+                  <div class="card border">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                          <h5 class="card-title">
+                            <%= link_to offer.property.title, property_path(offer.property), class: "text-decoration-none" %>
+                          </h5>
+                          <p class="text-muted mb-2">
+                            <i class="bi bi-geo-alt"></i> <%= offer.property.address %>
+                          </p>
+                          <h4 class="text-success fw-bold mb-2">
+                            R$ <%= number_with_precision(offer.value, precision: 2, delimiter: '.') %>
+                          </h4>
+                          <span class="badge
+                            <%= offer.status == 'pending' ? 'bg-warning text-dark' :
+                                offer.status == 'accepted' ? 'bg-success' : 'bg-danger' %>">
+                            <%= offer.status.humanize %>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <div class="mb-3">
+                <i class="bi bi-cart display-4 text-muted"></i>
+              </div>
+              <h5 class="text-muted">Nenhuma oferta feita</h5>
+              <p class="text-muted">Este comprador ainda não fez nenhuma oferta.</p>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
