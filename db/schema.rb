@@ -10,8 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_07_180306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "offers", force: :cascade do |t|
+    t.decimal "value"
+    t.bigint "user_id", null: false
+    t.bigint "property_id", null: false
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_offers_on_property_id"
+    t.index ["user_id"], name: "index_offers_on_user_id"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "title"
+    t.string "address"
+    t.decimal "price"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "name"
+    t.string "phone"
+    t.string "user_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "offers", "properties"
+  add_foreign_key "offers", "users"
+  add_foreign_key "properties", "users"
 end
