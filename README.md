@@ -47,32 +47,51 @@ cd property-marketplace
 
 Abaixo estão os conceitos aprendidos em aula e aplicados neste projeto, junto com a justificativa de sua utilização:
 
-### 1. Service Objects
+### 1. Active Record e ORM
+
+Utilizado para mapear as tabelas do banco de dados em objetos Ruby, facilitando a manipulação dos dados e garantindo integrações nativas com validações, associações e callbacks.
+**Exemplo:** Models como `User`, `Property` e `Offer` usam Active Record para persistência, validações e callbacks.
+
+### 2. Associações entre Models
+
+Aplicadas para modelar relações entre entidades do sistema, como usuários, imóveis e ofertas.
+**Exemplo:** `Property` possui várias `Offer` (`has_many`), `Offer` pertence a um `User` e a um `Property` (`belongs_to`). Isso facilita consultas e integridade dos dados.
+
+### 3. Concerns para Lógica Compartilhada
+
+Utilizados para extrair e reutilizar lógica comum entre models, mantendo o código limpo e DRY.
+**Exemplo:** O módulo `UserTypes` em `app/models/concerns/user_types.rb` centraliza métodos e escopos relacionados ao tipo de usuário.
+
+### 4. Organização de Código por Contexto
+
+O projeto está organizado em pastas como `controllers`, `models`, `services`, `repositories`, `views` e `concerns`, seguindo boas práticas de separação de responsabilidades e facilitando a manutenção e escalabilidade.
+
+### 5. Service Objects
 
 Utilizados para encapsular regras de negócio fora dos models e controllers, mantendo o código mais limpo e testável.
 **Exemplo:** As classes `PropertyService` e `OfferService` centralizam a lógica de criação, atualização e validação de imóveis e ofertas, facilitando manutenção e testes.
 
-### 2. Repository Pattern
+### 6. Repository Pattern
 
 Aplicado para separar a lógica de acesso a dados dos models, tornando o código mais organizado e flexível para mudanças futuras.
 **Exemplo:** `PropertyRepository` e `OfferRepository` concentram as queries e buscas, evitando SQL espalhado pelo projeto.
 
-### 3. Partials e Componentização de Views
+### 7. Partials e Componentização de Views
 
 Utilizados para evitar repetição de código e facilitar a manutenção das views.
 **Exemplo:** Os cards de imóvel e os formulários de imóvel e oferta foram extraídos para partials reutilizáveis, deixando as views mais limpas e DRY.
 
-### 4. Validações Personalizadas
+### 8. Validações Personalizadas
 
 Implementadas para garantir regras de negócio específicas diretamente no model.
 **Exemplo:** No model `Offer`, foi criada uma validação customizada para garantir que apenas uma oferta pode ser aceita por imóvel, evitando inconsistências.
 
-### 5. Helpers e Decorators
+### 9. Helpers e Decorators
 
 Utilizados para centralizar lógicas de apresentação e formatação, mantendo as views simples.
 **Exemplo:** O uso de helpers para formatação de valores e exibição de badges/status nas views.
 
-### 6. Responsividade e Design Moderno
+### 10. Responsividade e Design Moderno
 
 O Bootstrap foi utilizado para garantir um layout responsivo e visual agradável, melhorando a experiência do usuário em diferentes dispositivos.
 
@@ -216,7 +235,6 @@ has_many :properties, dependent: :destroy
 belongs_to :user
 validates :email, presence: true, uniqueness: true
 ```
-
 
 ## 🚀 Como Usar
 
