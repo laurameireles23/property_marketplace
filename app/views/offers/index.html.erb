@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card shadow-sm">
+      <div class="card-header bg-white">
+        <h1 class="h3 mb-0 text-dark">Minhas Ofertas</h1>
+      </div>
+      <div class="card-body">
+        <% if @offers.any? %>
+          <div class="row">
+            <% @offers.each do |offer| %>
+              <div class="col-12 mb-3">
+                <div class="card border">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <h5 class="card-title">
+                          <%= link_to offer.property.title, property_path(offer.property), class: "text-decoration-none" %>
+                        </h5>
+                        <p class="text-muted mb-2">
+                          <i class="bi bi-geo-alt"></i> <%= offer.property.address %>
+                        </p>
+                        <h4 class="text-success fw-bold mb-2">
+                          R$ <%= number_with_precision(offer.value, precision: 2, delimiter: '.') %>
+                        </h4>
+                        <span class="badge
+                          <%= offer.status == 'pending' ? 'bg-warning text-dark' :
+                              offer.status == 'accepted' ? 'bg-success' : 'bg-danger' %>">
+                          <%= offer.status.humanize %>
+                        </span>
+                      </div>
+                      <div class="text-muted small">
+                        <i class="bi bi-calendar"></i> <%= offer.created_at.strftime("%d/%m/%Y") %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="text-center py-5">
+            <div class="mb-4">
+              <i class="bi bi-cart display-1 text-muted"></i>
+            </div>
+            <h4 class="text-muted mb-3">Você ainda não fez nenhuma oferta</h4>
+            <p class="text-muted mb-4">Explore os imóveis disponíveis e faça sua primeira oferta!</p>
+            <%= link_to "Ver imóveis disponíveis", properties_path, class: "btn btn-primary btn-lg" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

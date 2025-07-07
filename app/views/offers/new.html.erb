@@ -1,0 +1,21 @@
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
+    <div class="card shadow">
+      <div class="card-header bg-white">
+        <h1 class="h3 mb-0 text-dark">Fazer Oferta</h1>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info mb-4">
+          <h5 class="alert-heading"><%= @property.title %></h5>
+          <p class="mb-2">
+            <i class="bi bi-geo-alt"></i> <%= @property.address %>
+          </p>
+          <h4 class="text-success fw-bold mb-0">
+            R$ <%= number_with_precision(@property.price, precision: 2, delimiter: '.') %>
+          </h4>
+        </div>
+        <%= render partial: "offers/form" %>
+      </div>
+    </div>
+  </div>
+</div>
